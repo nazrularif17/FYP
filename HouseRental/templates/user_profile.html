@@ -1,0 +1,204 @@
+{% extends 'header.html' %}
+{% block content %}
+<style>
+  body {
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: linear-gradient(315deg, #00D5FF 3%, #33CC4E 38%, #E7FF00 68%, #FF8800 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: 'Josefin Sans', sans-serif;
+
+font-family: 'Nunito', sans-serif;
+margin:0; padding:0;
+box-sizing: border-box;
+text-decoration: none;
+outline: none; border:none;
+text-transform: capitalize;
+transition: all .2s linear;
+}
+
+body{
+   background-color: #f3f3f3;
+}
+
+
+
+.wrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 450px;
+  height: 300px;
+  display: flex;
+  box-shadow: 0 1px 20px 0 rgba(69,90,100,.08);
+}
+
+.wrapper .left{
+  width: 35%;
+  background: linear-gradient(to right,#fff,#F9EBDE);
+  padding: 30px 25px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  text-align: center;
+  color: #815854;
+}
+
+.wrapper .left h4{
+  margin-top: 70%;
+  font-size: 15px;
+}
+
+.wrapper .left p{
+  font-size: 20px;
+}
+
+.wrapper .right{
+  width: 65%;
+  background: #fff;
+  padding: 30px 25px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+} 
+
+.wrapper .right .info{
+  margin-bottom: 25px;
+}
+
+.wrapper .right .info h3{
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #050404;
+  color: #010102;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+form {
+  color: #000;
+  font-size: 15px;
+  font-weight: 400;
+}
+input {
+  margin: 5px;
+}
+button {
+  background-color: #815854;
+  padding: 5px;
+  border-radius: 1rem;
+  margin-left: 80%;
+  font-size: 15px;
+  color: #f3f3f3;
+}
+button:hover{
+  color: #FF8800;
+  background-color: #F9EBDE;
+  border: 2px solid #FF8800;
+}
+</style>
+<body>
+  <div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+</div>
+<div class="wrapper">
+    <div class="left">
+        <h4>{{ request.user.customID }}</h4>
+        <br>
+        <p>{{ form.instance.studentName }}</p>
+    </div>
+    <div class="right">
+        <div class="info">
+          <h3>User Details</h3>
+          <form method="post" action="{% url 'user_profile' %}">
+            {% csrf_token %}
+            <label>Student ID:</label> {{ request.user.customID }}
+            <br>
+            <label>Student Name:</label> {{ form.instance.studentName }}
+            <br>
+            <label>Gender:</label> {{ form.instance.studentGender }}
+            <br>
+            <label>Phone Number:</label> {{ form.studentPhoneNo }}<br>
+            <label>Email:</label><br>{{ form.studentEmail }}<br>
+            <label>Residential Status:</label><br>{{ form.residentialStatus }}
+            <br>
+            <button type="submit">Update</button>
+          </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

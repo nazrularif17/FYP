@@ -1,0 +1,219 @@
+{% extends 'header.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .top-container {
+        border-radius: 2rem;
+        background-color: #F9EBDE;
+        margin: 2%;
+        margin-bottom: 0%;
+        max-height: 60%;
+        display: flex;
+    }
+    .option-container {
+        border-radius: 1rem;
+        background-color: #815854;
+        width: 35%;
+        max-width: 35%;
+        margin: 2%;
+        padding-top: 1%;
+        display: grid;         
+        justify-items: center;
+    }
+    .example-img {
+        border-radius: .5rem;
+        max-width: 90%;
+    }
+    .option {
+        border-radius: .5rem;
+        background-color: transparent;
+        display: flex;
+        width: 90%;
+        height: 80%;
+        margin: 2%;
+        justify-content: center;
+    }
+    .search, .share {
+        text-align: center;
+        background-color: #F9EBDE;
+        color: black;
+        font-size: x-large;
+        text-decoration: none;
+        padding: 1%;
+        margin: 3%;
+        margin-left: 5%;
+        margin-right: 5%;
+        width: 200%;
+    }
+    .ads-container {
+        position: relative;
+        margin: 2%;
+        width: 65%;
+        max-height: 430px;
+    }
+    .ads {
+        max-height: 100%;
+    }
+    .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+    @keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+    .ads-img {
+        border-radius: 2rem;
+        max-height: 430px;
+        width: 100%;
+        object-fit: cover;
+    }
+    .prev, .next {
+        opacity: 80%;
+        background-color: #F9EBDE;
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: #815854;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+    .next {
+        right: 60px;
+        border-radius: 3px 0 0 3px;
+    }
+    .prev:hover, .next:hover {
+        background-color: #FF8800;
+    }
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 6px 2px;
+        background-color: #FF8800;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+    .active, .dot:hover {
+        background-color: #815854;
+    }
+    hr {
+        background-color: grey;
+        width: 94%;
+        height: 2px;
+        margin-left: 3%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .bottom-container {
+        border-radius: 2rem;
+        background-color: #F9EBDE;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    .quick-filter {
+        margin-left: 2%;
+        margin-right: 2%;
+        display: flex;
+        justify-content: center;  
+        margin-bottom: 10px;    
+    }
+    .filter {
+        border-radius: .5rem;
+        text-align: center;
+        background-color: #815854;
+        font-size: large;
+        text-decoration: none;
+        color: #fff;
+        width: 20%;
+        height: 35px;
+        padding: 4px;
+        margin-left: 4%;
+        margin-right: 4%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+</style>
+<body>
+    <div class="top-container">
+        <div class="option-container">
+            <img class="example-img" src="https://s3.ap-southeast-1.amazonaws.com/gfg-origin-dsc.ibilik.com/production/images/rooms/7978360/7978360_2_ori.jpeg">
+            <div class="option">
+                <a href="{% url 'room_list' %}" class="search">Room</a>
+                <a href="{% url 'room_form' %}" class="share">Share</a>
+            </div>
+        </div>
+        <div class="ads-container">
+            <div class="ads">
+                <div class="ads-img fade">
+                    <img class="ads-img" src="https://s3.ap-southeast-1.amazonaws.com/gfg-origin-dsc.ibilik.com/production/images/rooms/7978360/7978360_2_ori.jpeg">
+                </div>
+                <!--<div class="ads-img fade">
+                    <img src="https://s3.ap-southeast-1.amazonaws.com/gfg-origin-dsc.ibilik.com/production/images/rooms/7944552/7944552_1_ori.jpg">
+                </div>
+                <div class="ads-img fade">
+                    <img src="https://www.roomsos.com/storage/properties/162455467276y6l-img-20210624-wa0011.jpg">
+                </div>
+                Next and previous buttons -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <!--<div class="bottom-container">
+        <div class="quick-filter">
+            <a href="" class="filter">Price</a>
+            <a href="" class="filter">Range</a>
+            <a href="" class="filter">Alphabet</a>
+            <a href="" class="filter">Room</a>
+        </div>
+    </div>-->
+</body>
+{% endblock %}
+<script>    
+      var slideIndex = 1;
+      showSlides(slideIndex);
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("ads");
+        var dots = document.getElementsByClassName("dot");
+        if(n > slides.length) {
+          slideIndex = 1
+        }
+        if(n < 1) {
+          slideIndex = slides.length
+        }
+        for(i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        for(i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+      }
+</script>
